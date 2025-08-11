@@ -1,0 +1,129 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;   /* ارتفاع کامل صفحه */t;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 20px;
+  margin: 0;
+  background: url(https://github.com/iweiu1005/balter-edit/blob/main/file/bg%20-%20balter.png?raw=true);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0;
+  color: #333;
+  line-height: 1.6;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+p {  
+  color: #fff;padding: 0px 18px;font-size: 19px;margin: 0;font-weight: 600;text-shadow: 0.5px 0.5px 1px black;
+}
+
+a {
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+
+a img{
+    transition: 0.3s ease-in-out;
+}
+a img:hover{
+    transform: scale(1.05);
+}
+
+img{
+    width: 155px;
+}
+
+::selection{
+    background-color: #ffffff;
+    color: #e9e9e9;
+}
+.web-links{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.web-link{   
+    width: 90px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:5px;
+}
+
+.web-link img{
+    width: 65px;
+}
+
+.web-link p{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.cancel{
+    margin-top: 30px;
+}
+.cancel img {
+    width: 70px;
+}
+.logo{
+    position: fixed;
+    bottom: 20px;
+}
+.logo img:hover{
+    transform: scale(1);
+}
+.window {
+  display: flex; 
+  position: relative; 
+  flex-direction: column; 
+  align-items: center;
+  max-width: 600px;
+  width: 300px;
+  padding: 5px 0px 5px 0px;
+}
+
+.support img{
+    
+}
+
+.highlight {
+  background: #f9f5c0;
+}
+
+
+/* ————— RESPONSIVE ————— */
+@media (max-width: 768px) {
+  body {
+    padding: 20px;
+  }
+
+  p {
+    font-size: 17px;
+  }
+
+  img{
+    width: 130px;
+  }
+  
+  .window {
+    margin: 0 auto;
+  }
+
+  .window-body {
+    gap: 15px;
+  }
+
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+}
