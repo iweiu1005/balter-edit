@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} | {{ site.title }}</title>
+  
+  <!-- لینک به فایل CSS اصلی -->
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  
+  <!-- CSS اختصاصی برای این لایه -->
+  <link rel="stylesheet" href="{{ '/assets/css/posts.css' | relative_url }}">
+
+  <!-- CSS سفارشی از Front Matter (اختیاری) -->
+  {% if page.custom_css %}
+  <style>
+    {{ page.custom_css }}
+  </style>
+  {% endif %}
+</head>
+<body>
+  <!-- هدر سایت -->
+  {% include header.html %}
+
+  <!-- محتوای اصلی پست -->
+  <main class="container">
+    <article class="post {% if page.custom_class %}{{ page.custom_class }}{% endif %}" 
+             {% if page.custom_attr %}data-attr="{{ page.custom_attr }}"{% endif %}>
+      <header class="post-header">
+        <h1 class="post-title">{{ page.title }}</h1>
+        
+        <div class="post-meta">
+          <time datetime="{{ page.date | date_to_xmlschema }}">
+            {{ page.date | jdate: "%A %d %b %Y" | persian_numbers }}
+          </time>
+          {% if page.author %} • {{ page.author }}{% endif %}
+        </div>
+
+        {% if page.tags %}
+        <div class="post-tags">
+          {% for tag in page.tags %}
+            <span class="tag">#{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </header>
+
+      <div class="post-content">
+        {{ content }}
+      </div>
+
+      {% if page.show_footer != false %}
+      <footer class="post-footer">
+        {% include share-buttons.html %}
+      </footer>
+      {% endif %}
+    </article>
+  </main>
+
+  <!-- فوتر سایت -->
+  {% include footer.html %}
+
+  <!-- اسکریپت‌های عمومی -->
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+  
+  <!-- JS اختصاصی از Front Matter (اختیاری) -->
+  {% if page.custom_js %}
+  <script>
+    {{ page.custom_js }}
+  </script>
+  {% endif %}
+</body>
+</html>
