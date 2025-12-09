@@ -3,40 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- Preconnect برای سریع‌تر کردن لود -->
+  <!-- Preconnect برای سریع‌ترین لود -->
   <link rel="preconnect" href="https://giscus.app">
   <link rel="preconnect" href="https://github.com">
   <link rel="dns-prefetch" href="https://giscus.app">
   <link rel="dns-prefetch" href="https://github.com">
   
   <link href="/file/317.png" rel="shortcut icon" />
-  <title>Balter Edit ~ Comment</title>
+  <title>Balter Edit ~ نظرات</title>
   
   <!-- Style Link -->
   <link rel="stylesheet" href="/comment/style.css" />
   
-  <!-- Google Font با preload -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet" />
+  <!-- Google Font بهینه‌شده -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="window">
-    <h1>نظرات</h1>
+    <h1>💬 بخش نظرات</h1>
     
-    <!-- Loading Skeleton برای نمایش سریع‌تر -->
-    <div id="giscus-loading" class="giscus-loading">
-      <div class="loading-pulse"></div>
-      <p>در حال بارگذاری نظرات...</p>
+    <!-- Loading State برای UX بهتر -->
+    <div id="giscus-loading" class="loading-state">
+      <div class="spinner"></div>
+      <p class="loading-text">در حال بارگذاری نظرات...</p>
+      <button id="load-manually" class="load-btn">بارگذاری دستی</button>
     </div>
     
     <!-- Container برای giscus -->
-    <div id="giscus-container" class="giscus"></div>
+    <div id="giscus-container"></div>
   </div>
 
+  <!-- اسکریپت بهینه‌شده با استراتژی لود هوشمند -->
   <script>
-    
     // تنظیمات giscus
     const giscusConfig = {
       src: "https://giscus.app/client.js",
@@ -209,6 +209,106 @@
       }
     });
   </script>
-  </script>
+
+  <!-- استایل‌های اضافی برای loading و responsive -->
+  <style>
+    /* Loading State Styles */
+    .loading-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 200px;
+      padding: 30px 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      margin: 20px 0;
+      border: 2px dashed #e0e0e0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .loading-text {
+      color: #555;
+      font-size: 16px;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+    
+    .load-btn {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    }
+    
+    .load-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .loading-state {
+        min-height: 150px;
+        padding: 20px 15px;
+        margin: 15px 0;
+      }
+      
+      .spinner {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .loading-text {
+        font-size: 14px;
+      }
+      
+      .load-btn {
+        padding: 8px 20px;
+        font-size: 13px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .loading-state {
+        min-height: 120px;
+        padding: 15px 10px;
+      }
+      
+      .spinner {
+        width: 35px;
+        height: 35px;
+      }
+    }
+    
+    /* برای دسکتاپ */
+    @media (min-width: 769px) {
+      .loading-state {
+        min-height: 180px;
+      }
+    }
+  </style>
 </body>
 </html>
