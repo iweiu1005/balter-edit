@@ -212,6 +212,7 @@ div#giscus-container{
     overflow: overlay;
     border: 1px solid #3498db;
   border-radius: 5px;
+  margin-top: 20px;
 }
 
 .cmnthelp::-webkit-scrollbar {
