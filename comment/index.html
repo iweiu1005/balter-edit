@@ -24,190 +24,25 @@
   <div class="window">
     <h1>💬 بخش نظرات</h1>
     
-    <!-- Loading State برای UX بهتر -->
-    <div id="giscus-loading" class="loading-state">
-      <div class="spinner"></div>
-      <p class="loading-text">در حال بارگذاری نظرات...</p>
-      <button id="load-manually" class="load-btn">بارگذاری دستی</button>
-    </div>
-    
     <!-- Container برای giscus -->
     <div id="giscus-container"></div>
   </div>
 
-  <!-- اسکریپت بهینه‌شده با استراتژی لود هوشمند -->
-  <script>
-    // تنظیمات giscus
-    const giscusConfig = {
-      src: "https://giscus.app/client.js",
-      "data-repo": "iweiu1005/balter-edit",
-      "data-repo-id": "R_kgDOPbbiVw",
-      "data-category": "Announcements",
-      "data-category-id": "DIC_kwDOPbbiV84CzkpQ",
-      "data-mapping": "pathname",
-      "data-strict": "0",
-      "data-reactions-enabled": "1",
-      "data-emit-metadata": "0",
-      "data-input-position": "top",
-      "data-theme": "light_high_contrast",
-      "data-lang": "fa",
-      "data-loading": "lazy",
-      crossorigin: "anonymous",
-      async: true
-    };
-
-    let giscusLoaded = false;
-    let loadingState = document.getElementById('giscus-loading');
-    let loadButton = document.getElementById('load-manually');
-
-    // تابع لود giscus
-    function loadGiscus() {
-      if (giscusLoaded) return;
-      
-      console.log('بارگذاری نظرات...');
-      giscusLoaded = true;
-      
-      const script = document.createElement('script');
-      Object.keys(giscusConfig).forEach(key => {
-        if (key === 'src') {
-          script.src = giscusConfig[key];
-        } else {
-          script.setAttribute(key, giscusConfig[key]);
-        }
-      });
-      
-      document.getElementById('giscus-container').appendChild(script);
-      
-      // تغییر متن loading
-      if (loadingState) {
-        loadingState.querySelector('.loading-text').textContent = 'در حال بارگذاری، لطفاً کمی صبر کنید...';
-        loadButton.style.display = 'none';
-      }
-      
-      // مخفی کردن loading بعد از 5 ثانیه (fallback)
-      setTimeout(() => {
-        if (loadingState && loadingState.style.display !== 'none') {
-          loadingState.style.opacity = '0';
-          setTimeout(() => {
-            loadingState.style.display = 'none';
-          }, 300);
-        }
-      }, 5000);
-    }
-
-    // رویداد لود دستی
-    loadButton.addEventListener('click', loadGiscus);
-
-    // تشخیص دستگاه و استراتژی لود مناسب
-    function initGiscus() {
-      const isMobile = window.innerWidth <= 768;
-      const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-      
-      if (!isMobile) {
-        // دسکتاپ: لود سریع
-        setTimeout(loadGiscus, 500);
-        return;
-      }
-      
-      // موبایل: استراتژی‌های مختلف
-      if (connection) {
-        // تشخیص سرعت شبکه
-        const effectiveType = connection.effectiveType;
-        const saveData = connection.saveData;
-        
-        if (effectiveType === '4g' && !saveData) {
-          // شبکه سریع: لود با تاخیر کم
-          setTimeout(loadGiscus, 1000);
-        } else if (effectiveType === '3g') {
-          // شبکه متوسط: لود وقتی کاربر نزدیک شد
-          setupScrollTrigger();
-        } else {
-          // شبکه ضعیف یا saveData: فقط با کلیک کاربر
-          console.log('شبکه ضعیف، منتظر کلیک کاربر...');
-        }
-      } else {
-        // Fallback: لود وقتی کاربر اسکرول کرد
-        setupScrollTrigger();
-      }
-      
-      // Fallback: لود بعد از 3 ثانیه اگر کاربر کاری نکرد
-      setTimeout(() => {
-        if (!giscusLoaded && isMobile) {
-          loadGiscus();
-        }
-      }, 3000);
-    }
-
-    // لود وقتی کاربر نزدیک بخش کامنت اسکرول کرد
-    function setupScrollTrigger() {
-      let scrollTriggered = false;
-      
-      function checkScroll() {
-        if (scrollTriggered) return;
-        
-        const giscusElement = document.getElementById('giscus-container');
-        if (!giscusElement) return;
-        
-        const rect = giscusElement.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight + 200;
-        
-        if (isVisible && !giscusLoaded) {
-          scrollTriggered = true;
-          loadGiscus();
-          window.removeEventListener('scroll', checkScroll);
-        }
-      }
-      
-      window.addEventListener('scroll', checkScroll);
-      // یکبار چک کن شاید از اول visible باشد
-      setTimeout(checkScroll, 100);
-    }
-
-    // رویداد visibility change (تب تغییر کرد)
-    document.addEventListener('visibilitychange', function() {
-      if (document.visibilityState === 'visible' && !giscusLoaded) {
-        // اگر برگشتیم به صفحه و هنوز لود نشده
-        setTimeout(loadGiscus, 500);
-      }
-    });
-
-    // وقتی giscus لود شد
-    window.addEventListener('message', function(event) {
-      if (event.origin === 'https://giscus.app') {
-        if (event.data && event.data.giscus) {
-          if (event.data.giscus.loading === false) {
-            // مخفی کردن loading با انیمیشن
-            if (loadingState) {
-              loadingState.style.transition = 'opacity 0.3s ease';
-              loadingState.style.opacity = '0';
-              setTimeout(() => {
-                loadingState.style.display = 'none';
-              }, 300);
-            }
-            console.log('نظرات با موفقیت بارگذاری شد!');
-          }
-        }
-      }
-    });
-
-    // شروع وقتی DOM آماده شد
-    document.addEventListener('DOMContentLoaded', function() {
-      // اگر کاربر روی mobile data saving است، صبر کن تا کلیک کند
-      if (navigator.connection && navigator.connection.saveData) {
-        console.log('حالت صرفه‌جویی در داده فعال است');
-        return;
-      }
-      
-      initGiscus();
-    });
-
-    // اگر کاربر online/offline شد
-    window.addEventListener('online', function() {
-      if (!giscusLoaded) {
-        console.log('اتصال برقرار شد، بارگذاری نظرات...');
-        setTimeout(loadGiscus, 1000);
-      }
-    });
-  </script>
+  <script src="https://giscus.app/client.js"
+        data-repo="iweiu1005/balter-edit"
+        data-repo-id="R_kgDOPbbiVw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOPbbiV84CzkpQ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light_high_contrast"
+        data-lang="fa"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 </body>
 </html>
