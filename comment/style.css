@@ -48,7 +48,7 @@ div#giscus-container{
   padding: 30px 20px;
   margin: 0 auto;
   background: white;
-  border-radius: 00px;
+  border-radius: 10px;
 }
 
 @media (max-width: 768px) {
