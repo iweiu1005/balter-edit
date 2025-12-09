@@ -22,10 +22,6 @@ body {
   text-align: center;
   overflow-x: hidden;
 }
-
-div#giscus-container{
-  width:100%;
-}
 /* تصویر بک‌گراند برای موبایل بهینه‌تر */
 @media (max-width: 768px) {
   body {
@@ -355,4 +351,20 @@ a:hover {
   .loading-state {
         min-height: 180px;
       }
+}
+
+/* New */
+
+
+div#giscus-container{
+  width:100%;
+}
+
+.cmnthelp {
+  height: 110px;
+    overflow: overlay;
+}
+p.cmnthelp {
+    color: #b0b0b0;
+    font-size: small;
 }
