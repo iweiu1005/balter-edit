@@ -83,7 +83,6 @@ img{
   position: relative; 
   flex-direction: column; 
   align-items: center;
-  max-width: 600px;
   width: 500px;
   padding: 5px 0px 5px 0px;
 }
@@ -115,6 +114,7 @@ img{
   
   .window {
     margin: 0 auto;
+    width:90vw;
   }
 
   .window-body {
