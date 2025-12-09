@@ -193,6 +193,35 @@ a:hover {
 }
 
 
+/* New */
+
+h3 {
+    text-align: right;
+    color: #3498db;
+    border-right: 4px solid #3498db;
+    margin-bottom: 5px;
+    padding: 0px 7px;
+}
+
+div#giscus-container{
+  width:100%;
+}
+
+.cmnthelp {
+  height: 110px;
+    overflow: overlay;
+    border: 1px solid #3498db;
+  border-radius: 5px;
+}
+
+.cmnthelp::-webkit-scrollbar {
+  display: none; 
+}
+p.cmnthelp_text {
+    font-size: small;
+    color: #c5c5c5;
+}
+
 /* Loading State Styles */
     .loading-state {
       display: flex;
@@ -353,18 +382,3 @@ a:hover {
       }
 }
 
-/* New */
-
-
-div#giscus-container{
-  width:100%;
-}
-
-.cmnthelp {
-  height: 110px;
-    overflow: overlay;
-}
-p.cmnthelp {
-    color: #b0b0b0;
-    font-size: small;
-}
