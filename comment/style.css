@@ -23,7 +23,7 @@ body {
   overflow-x: hidden;
 }
 
-#giscus-container{
+div#giscus-container{
   width:100%;
 }
 /* تصویر بک‌گراند برای موبایل بهینه‌تر */
